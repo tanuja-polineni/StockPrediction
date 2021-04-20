@@ -1,0 +1,198 @@
+<html>
+<head>
+    <meta charset="utf-8">
+    <title> Prediction Results </title>
+    <script src="/static/js/dygraph.js"></script>
+    <link rel="stylesheet" href="../static/style_result.css">
+    <link rel="stylesheet" href="/static/css/dygraph.css"/>
+</head>
+
+<body class = "bodyclass" >
+
+    <div class="topnav" >
+        <a href="/" class = "homepage" style="color:White" >Stock Value Prediction</a>
+    </div>
+
+    <h6>
+        <object class = "summary" data="../static/summary/{{stock_tinker}}.txt" style="width:85%; height:40%;" ></object>
+    </h6>
+        
+
+
+    <table class="print_details" align="center" >
+        <tr>
+
+            <td>
+                <font color="grey">{{ stock_tinker }}</font>
+            </td>
+                
+            <td>
+                <font color="grey">Last Closing Stock Value</font>
+            </td>
+
+            <td>
+                <font color="grey">Predicted Stock Value</font>
+            </td>
+
+        </tr>
+            
+        <tr>
+            <td></td>
+
+            <td>
+                <font color="grey">{{original}}</font>
+            </td>
+
+            <td>
+                <script type="text/javascript">
+
+                    if ({{forecast}} > {{original}})
+                        document.write("<center><b><font color=\"green\"><font size=\"5\">  {{forecast}}  </font><\/font></b></center>");
+                    else
+                        document.write("<center><b><font color=\"red\"><font size=\"5\">  {{forecast}}  </font><\/font></b></center>");
+                    //<font color="grey">{{forecast}}</font>
+
+                </script>
+            </td>
+            
+        </tr>
+
+    </table>
+
+
+    <script type="text/javascript">
+        if( {{original}} - {{forecast}} < 0)
+        {   
+            document.write("<center><b><font color=\"green\"><font size=\"5\">BUY</font><\/font></b></center>");
+                
+        }
+        else 
+        {
+            document.write("<center><b><font color=\"red\"><font size=\"5\">SELL - if stock is owned </font><\/font></b></center>");
+            //document.write("<center><b><font color=\"red\">Sell - if stock is owned<\/font></b></center>");
+            //document.write("<center><b><font color=\"green\">Short - if stock is not owned<\/font></b></center>")
+            document.write("<center><b><font color=\"green\"><font size=\"5\">SHORT - if stock is not owned</font><\/font></b></center>");
+        }        
+    </script>    
+
+
+    <table class="container">
+        <tr>
+            <td>
+                <div id="graph" style="width:1000px; height:500px;" class="graph"></div>
+            </td>
+            <td>
+                <div id="graphLegend" style="width:20px; height:3px;" class="graphbox"></div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class = "labels">
+                    Show Data:
+                    <input type=checkbox id="0" checked onClick="change(this)">
+                        <label for="0"> <font color="008000">Actual</font></label>
+                    <input type=checkbox id="1" checked onClick="change(this)">
+                        <label for="1"> <font color="#000080">Forecasted</font></label>
+                </div>
+            </td>
+        </tr>
+    </table>
+          
+<script type="text/javascript">
+    g2 = new Dygraph(
+                     document.getElementById("graph"),
+                     // CSV or path to a CSV file.
+                     "{{ url_for('static', filename='numbers.csv') }}", // path to CSV file
+                     {
+                     visibility: [true, true],
+                     labelsDiv: document.getElementById("graphLegend")
+                     }          // options
+                     );
+     setStatus();
+                     
+     function setStatus() {
+                         document.getElementById("visibility").innerHTML =
+                         g2.visibility().toString();
+                     }
+    function change(el) {
+                        g2.setVisibility(parseInt(el.id), el.checked);
+                        setStatus();
+                     }
+</script>
+
+
+<div><marquee>
+    <table class="newsbox" scrollamount="1" >
+        <tr>
+            <td>
+                <div>
+                    <a style="display:block;color:black; width: 200px; margin-left: 20px" font-family: "Comic Sans MS" href="https://www.cnbc.com/2021/04/16/dogecoin-doge-price-meme-cryptocurrencys-rise-sparks-bubble-fears.html" target="_blank" ><font color="808080"><b>Bitcoin hits all-time high above $11,700 as recovery accelerates</font color></b></a>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <a style="display:block;color:black; width: 200px; margin-left: 20px" href="https://www.forbes.com/sites/jjkinahan/2021/04/16/stocks-keep-scaling-records-amid-bumper-bank-earnings-data-lower-treasury-yields/?sh=483d2a47dcba" target="_blank" ><b><font color="808080">Tech stocks drop steeply, offsetting bank and healthcare shares' rise</font color></b></a>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <a style="display:block;color:black; width: 200px; margin-left: 20px" href="https://www.cnbc.com/2021/04/16/spacex-sole-winner-in-nasas-hls-moon-lander-program-report.html" target="_blank" ><b><font color="808080">Wall Street is giddy over Amazon shares, gets its most bullish call yet: $1,500 price target</font color></b></a>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <a style="display:block;color:black; width: 200px; margin-left: 20px" href="https://www.forbes.com/sites/steveforbes/2021/04/15/did-paypal-just-make-cryptocurrency-the-cash-of-the-future/?sh=523dad6c4dcb" target="_blank" ><b><font color="808080">Amazon and the Race to Be the First $1 Trillion Company</font color></b></a>
+                </div>
+                
+            </td>
+            <td>
+                <div>
+                    <a style="display:block;color:black; width: 200px; margin-left: 20px" href="https://www.forbes.com/sites/ywang/2021/04/14/chinas-clampdown-on-jack-mas-ant-group-has-investors-questioning-its-valuation/?sh=37fea23539a5" target="_blank" ><b><font color="808080">Apple Has Twice As Much Cash As The US Government</font color></b></a>
+                </div>
+                
+            </td>
+        </tr>
+    </table>
+    </marquee>
+    <marquee direction = "right">
+    <table class="newsbox" scrollamount="1">
+        <tr>
+            <td>
+                <div>
+                    <a style="display:block;color:black; width: 200px; margin-left: 20px" href="https://www.latimes.com/business/story/2021-04-16/s-p-500-hits-another-record-marks-4th-weekly-gain-in-a-row" target="_blank" ><b><font color="808080">CVS and Aetna say their huge merger will be great for consumers. Here's why you should be skeptical</font color></b></a>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <a style="display:block;color:black; width: 200px; margin-left: 20px" href="https://markets.businessinsider.com/news/stocks/david-einhorn-investor-letter-archegos-gsxtechedu-stock-trading-real-story-2021-4-1030314247" target="_blank" ><b><font color="808080">Amid tax-bill euphoria, one big part of the stock market is getting left behind: Tech</font color></b></a>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <a style="display:block;color:black; width: 200px; margin-left: 20px" href="https://markets.businessinsider.com/news/stocks/jeremy-grantham-gmo-sold-gamestop-stock-missed-short-squeeze-windfall-2021-4-1030314235" target="_blank" ><b><font color="808080">Broadcom Puts Qualcomm on the Clock</font color></b></a>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <a style="display:block;color:black; width: 200px; margin-left: 20px" href="https://seekingalpha.com/news/3682747-goldman-morgan-stanley-signal-plans-for-crypto-disruption-alpha-tact?utm_source=markets.businessinsider.com&utm_medium=referral" target="_blank" ><b><font color="808080">Dow hits record as investors bet on tax cuts</font color></b></a>
+                </div>
+            </td>
+            <td>
+                <div>
+                    <a style="display:block;color:black; width: 200px; margin-left: 20px" href="https://www.reuters.com/article/us-usa-stocks-weekahead/wall-street-week-ahead-tech-retakes-market-lead-as-investors-eye-yields-earnings-idUSKBN2C32OK" target="_blank" ><b><font color="808080">Meet The PayPal Mafia, The Richest Group Of Men In Silicon Valley</font color></b></a>
+                </div>  
+            </td>
+        </tr>
+    </table>
+    </marquee>
+</div>
+
+</body>
+</html>
+
+
+
+
+
+
+
